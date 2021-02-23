@@ -127,7 +127,10 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
 
+PERFIL_MANTENIMIENTO = 1
+PERFIL_EMPLEADO = 2
 
+STATUS_CONFIRMATION = 2
 # if LOCAL_DEPLOY:
 #     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # else:

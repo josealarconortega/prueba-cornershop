@@ -15,6 +15,14 @@ class UsuariosRepository(metaclass=ABCMeta):
     @abstractmethod
     def get_all(self) -> typing.List[Usuario]:
         pass
+    
+    @abstractmethod
+    def get_all_by_perfil(self, perfil_id: int) -> typing.List[Usuario]:
+        pass
+
+    @abstractmethod
+    def get_by_uid(self, uid: str) -> Usuario:
+        pass
 
     @abstractmethod
     def get_user_password(self, rut: str, password: str) -> Usuario:

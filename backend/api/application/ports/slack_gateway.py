@@ -3,9 +3,8 @@ from abc import (
     abstractmethod,
 )
 
-
 class SlackGateway(metaclass=ABCMeta):
 
     @abstractmethod
-    def notify_user(self, usuario_id: int, uid: str) -> None:
+    def notify_user(self, email: str, msg: str) -> None:
         pass

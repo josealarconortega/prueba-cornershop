@@ -11,7 +11,7 @@ class UsuarioSerializer:
             'id': usuario.id,
             'rut': usuario.rut,
             'nombre': usuario.nombre,
-            'usuario_slack': usuario.usuario_slack,
+            'email': usuario.email,
             'fecha_registro': usuario.fecha_registro,
             'uid': usuario.uid,
             'perfil_id': usuario.perfil_id,

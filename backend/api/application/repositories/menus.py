@@ -17,6 +17,10 @@ class MenusRepository(metaclass=ABCMeta):
         pass
 
     @abstractmethod
+    def get_by_id_list(self, menu_id: typing.List[int]) -> typing.List[Menu]:
+        pass
+
+    @abstractmethod
     def get_by_date(self, date: datetime ) -> typing.List[Menu]:
         pass
     

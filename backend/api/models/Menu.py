@@ -12,5 +12,6 @@ class Menu(models.Model):
     usuario_creacion = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     fecha_menu = models.DateTimeField(blank=True, null=True)
     status = models.ForeignKey(Status, on_delete=models.CASCADE)
+    orden = models.IntegerField(blank=True, null=True)
     def __str__(self):
         return self.descripcion 

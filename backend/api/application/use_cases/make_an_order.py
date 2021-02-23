@@ -42,11 +42,12 @@ class MakeAnOrderUseCase:
         message = ""
         menu = self.menu_repo.get_by_id(input_dto.menu_id)
         usuario = self.usuario_repo.get_by_id(input_dto.usuario_id)
+        usuario_menu = None
         if menu is not None:
             if usuario is not None:
                 code = 1
                 status = 200
-                message = "Menu registrado correctamente"
+                message = "Menu tomado correctamente"
                 usuario_menu = self.usuario_menu_repo.save(UsuarioMenu(None, usuario, menu, input_dto.descripcion, date.today()))
                 
             else:

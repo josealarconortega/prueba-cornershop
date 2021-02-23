@@ -4,11 +4,11 @@ from api.domain.entities.perfil import Perfil
 from api.domain.entities.menu import Menu
 
 class Usuario:
-    def __init__(self, id: Optional[int], nombre: str, usuario: str, rut: str, usuario_slack: str, fecha_registro: str, uid: str, perfil_id: int, password: str) -> None:
+    def __init__(self, id: Optional[int], nombre: str, usuario: str, rut: str, email: str, fecha_registro: str, uid: str, perfil_id: int, password: str) -> None:
         self._id = id
         self._rut = rut
         self._nombre = nombre
-        self._usuario_slack = usuario_slack
+        self._email = email
         self._fecha_registro = fecha_registro
         self._uid = uid
         self._perfil_id = perfil_id
@@ -30,8 +30,8 @@ class Usuario:
         return self._usuario
 
     @property
-    def usuario_slack(self):
-        return self._usuario_slack
+    def email(self):
+        return self._email
 
     @property
     def fecha_registro(self):
