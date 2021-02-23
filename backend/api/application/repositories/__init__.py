@@ -1,0 +1,3 @@
+from api.application.repositories.usuarios import UsuariosRepository
+from api.application.repositories.menus import MenusRepository
+from api.application.repositories.usuario_menus import UsuarioMenusRepository
