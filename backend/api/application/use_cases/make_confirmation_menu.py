@@ -58,10 +58,10 @@ class ConfirmationUseCase:
                 i += 1
             i = 0
             for usuario in usuarios:
-                msg = "Hola! Comparto con ustedes el menú de hoy \n " + menuSTR + " Para seleccionar el menu, debes ingresar al siguiente link " + settings.URL_SELECCION_MENU + usuario.uid
+                msg = "Hola! Comparto con ustedes el menú de hoy \n " + menuSTR + " Para seleccionar el menu, debes ingresar al siguiente link <http://" + settings.URL_SELECCION_MENU + usuario.uid + "|Reservar>"
                 if self.slack_gateway.notify_user(usuario.email, msg) == False:
                     i += 1
-            if i == 0 :
+            if i > 0 :
                 code = 0
                 status = 500
                 message = "Ocurrio un error al enviar mensaje a SLACK"

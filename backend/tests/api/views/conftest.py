@@ -47,7 +47,7 @@ def perfil_mantencion_with() -> PerfilModel:
 @pytest.fixture()
 def usuario_with(password: str, uid: str, perfil_mantencion_with: PerfilModel) -> UsuarioModel:
     usuario_created = UsuarioModel.objects.create(
-        rut = '33.333.333-3', nombre = 'test', email = 'test3@test3.cl', fecha_registro = date.today(), 
+        rut = '33.333.333-3', nombre = 'test', email = 'test@test.cl', fecha_registro = date.today(), 
         uid = uid, perfil = perfil_mantencion_with, password = hashlib.md5(password.encode()).hexdigest()
     )
     return usuario_created
@@ -73,9 +73,5 @@ def slack_gateway_adapters_mock() -> Mock:
     return Mock(spec_set=SlackGateway, notify_user=Mock(return_value=True))
 
 @pytest.fixture(autouse=True)
-def dependency_injection_config(
-    slack_gateway_adapters_mock: Mock
-) -> None:
-    def configure(binder: inject.Binder) -> None:
-        binder.bind(SlackGateway, slack_gateway_adapters_mock)
+def dependency_injection_config() -> None:
     inject.clear_and_configure(inject_config)
