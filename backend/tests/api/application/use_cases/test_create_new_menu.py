@@ -44,15 +44,15 @@ def status_id() -> int:
     return 1
 
 @pytest.fixture()
-def fecha_menu() -> datetime:
-    return date.today()
+def fecha_menu() -> str:
+    return '2021-02-01 00:00:00'
 
 @pytest.fixture()
 def orden() -> int:
     return 1
 
 @pytest.fixture()
-def descripcion_menu_dto(descripcion: str, entrada: str, ensalada: str, plato_fondo: str, postre: str, status_id: int, fecha_menu: datetime, orden: int) -> MenuDescripcionDTO:
+def descripcion_menu_dto(descripcion: str, entrada: str, ensalada: str, plato_fondo: str, postre: str, status_id: int, fecha_menu: str, orden: int) -> MenuDescripcionDTO:
     return [MenuDescripcionDTO(descripcion, entrada, ensalada, plato_fondo, postre, status_id, fecha_menu, orden)]
 
 @pytest.fixture()

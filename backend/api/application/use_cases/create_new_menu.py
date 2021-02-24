@@ -16,7 +16,7 @@ class MenuDescripcionDTO:
     plato_fondo: str
     postre: str
     status_id: int
-    fecha_menu: datetime 
+    fecha_menu: str
     orden: int
 @dataclass
 class MenuInputDto:
@@ -49,7 +49,7 @@ class MakeNewMenuUseCase:
             i = 0
             
             for menu in input_dto.menus:
-                menu = self.menu_repo.save(Menu(None, menu.descripcion, menu.entrada, menu.ensalada, menu.plato_fondo, menu.postre, date.today(), input_dto.usuario_id, menu.fecha_menu, menu.status_id, menu.orden))
+                menu = self.menu_repo.save(Menu(None, menu.descripcion, menu.entrada, menu.ensalada, menu.plato_fondo, menu.postre, date.today(), input_dto.usuario_id, datetime.strptime(str(menu.fecha_menu), '%Y-%m-%d %H:%M:%S'), menu.status_id, menu.orden))
                 if menu is not None:
                     menus.append(menu)
                     i += 1 

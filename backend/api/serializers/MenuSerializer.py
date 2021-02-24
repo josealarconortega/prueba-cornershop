@@ -15,8 +15,8 @@ class MenuSerializer:
                 'ensalada': menu.ensalada,
                 'plato_fondo': menu.plato_fondo,
                 'postre': menu.postre,
-                'fecha_registro': menu.fecha_registro,
+                'fecha_registro': menu.fecha_registro.strftime("%Y%M%D %H:%M:%S"),
                 'usuario_creacion_id':menu.usuario_creacion_id,
-                'fecha_menu': menu.fecha_menu
+                'fecha_menu': menu.fecha_menu.strftime("%Y%M%D %H:%M:%S")
             }
 

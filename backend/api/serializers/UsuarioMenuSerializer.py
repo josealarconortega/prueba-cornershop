@@ -10,9 +10,9 @@ class UsuarioMenuSerializer:
     def serialize(usuario_menu):
         return {
                 'id': usuario_menu.id,
-                'descripcion': usuario_menu.descripcion,
+                'observacion': usuario_menu.observacion,
                 'usuario_id': usuario_menu.usuario_id,
                 'menu_id': usuario_menu.menu_id,
-                'fecha_registro': usuario_menu.fecha_registro
+                'fecha_registro': usuario_menu.fecha_registro.strftime("%Y%M%D %H:%M:%S"),
             }
 

@@ -36,10 +36,11 @@ class DjangoORMUsuarioMenusRepository(UsuarioMenusRepository):
         try:
             usuario_instance = UsuarioModel.objects.get(id=usuario_menu.usuario_id)
             menu_instance = MenuModel.objects.get(id=usuario_menu.menu_id)
-            model = UsuarioMenuModel(id = usuario_menu.id,usuario = usuario_instance, menu = menu_instance,  
+            model = UsuarioMenuModel(usuario = usuario_instance, menu = menu_instance,  
                 observacion = UsuarioMenu.observacion, fecha_registro = usuario_menu.fecha_registro)
             model.save()
             return usuario_menu
         except Exception as e:
+            print(e)
             return None
             

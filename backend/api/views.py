@@ -13,7 +13,7 @@ from api.application import (
 from api.application.use_cases import make_an_order, make_confirmation_menu, create_new_menu, create_new_user
 from rest_framework.decorators import api_view,permission_classes
 from config.decorators import serialize_exceptions
-from api.serializers import UsuarioMenuSerializer, UsuarioSerializer, MultipleMenuSerializer
+from api.serializers import UsuarioMenuSerializer, UsuarioSerializer, MultipleMenuSerializer, MultipleUsuarioMenuSerializer
 from api.domain.value_objects import Response
 import hashlib 
 import os
@@ -86,7 +86,22 @@ def create_menu(request: HttpRequest) -> HttpResponse:
     })
     uc = create_new_menu.MakeNewMenuUseCase()
     output_dto = uc.execute(input_dto)
-    response = Response(code=output_dto.code, status= output_dto.status, message = output_dto.message, data = UsuarioMenuSerializer.serialize(output_dto.data)).toResponse()
+    response = Response(code=output_dto.code, status= output_dto.status, message = output_dto.message, data = MultipleMenuSerializer.serialize(output_dto.data)).toResponse()
+    return HttpResponse(response, status=output_dto.status, content_type='application/json')
+
+@api_view(['POST'])
+@serialize_exceptions
+def confirmation_menu(request: HttpRequest) -> HttpResponse:
+    data = json.loads(request.body)
+    input_dto = dacite.from_dict(make_confirmation_menu.MenuInputDto, {
+        'perfil_id': data['perfil_id'],
+        'menu_ids': data['menu_ids'],
+        'status_id': data['status_id']
+    })
+
+    uc = make_confirmation_menu.ConfirmationUseCase()
+    output_dto = uc.execute(input_dto)
+    response = Response(code=output_dto.code, status= output_dto.status, message = output_dto.message, data = None).toResponse()
     return HttpResponse(response, status=output_dto.status, content_type='application/json')
 
 @api_view(['POST'])
@@ -101,21 +116,6 @@ def select_menu_usuario(request: HttpRequest) -> HttpResponse:
 
     uc = make_an_order.MakeAnOrderUseCase()
     output_dto = uc.execute(input_dto)
-    response = Response(code=output_dto.code, status= output_dto.status, message = output_dto.message, data = MultipleMenuSerializer.serialize(output_dto.data)).toResponse()
-    return HttpResponse(response, status=output_dto.status, content_type='application/json')
-
-@api_view(['POST'])
-@serialize_exceptions
-def confirmation_menu(request: HttpRequest) -> HttpResponse:
-    data = json.loads(request.body)
-    input_dto = dacite.from_dict(make_confirmation_menu.MenuInputDto, {
-        'usuario_id': settings.PERFIL_EMPLEADO,
-        'menus_id': data['menus_id'],
-        'status_id': os.environ['ESTATUS_CONFIRMATION']
-    })
-
-    uc = make_confirmation_menu.ConfirmationUseCase()
-    output_dto = uc.execute(input_dto)
-    response = Response(code=output_dto.code, status= output_dto.status, message = output_dto.message, data = None).toResponse()
+    response = Response(code=output_dto.code, status= output_dto.status, message = output_dto.message, data = (UsuarioMenuSerializer.serialize(output_dto.data) if output_dto.data is not None else None)).toResponse()
     return HttpResponse(response, status=output_dto.status, content_type='application/json')
 
