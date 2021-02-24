@@ -4,7 +4,7 @@ from api.domain.entities.perfil import Perfil
 from api.domain.entities.menu import Menu
 
 class Usuario:
-    def __init__(self, id: Optional[int], nombre: str, usuario: str, rut: str, email: str, fecha_registro: str, uid: str, perfil_id: int, password: str) -> None:
+    def __init__(self, id: Optional[int], nombre: str, rut: str, email: str, fecha_registro: str, uid: str, perfil_id: int, password: str) -> None:
         self._id = id
         self._rut = rut
         self._nombre = nombre
@@ -49,8 +49,11 @@ class Usuario:
     def password(self):
         return self._password
 
-    def __eq__(self, other):
-        return self.__dict__ == other.__dict__
+    #def __eq__(self, other):
+    #    return self.__dict__ == other.__dict__
+#
+    #def __ne__(self, other):
+    #    return not self == other
 
-    def __ne__(self, other):
-        return not self == other
+    def __str__(self):
+        return f'<Usuario #{self._id}>'

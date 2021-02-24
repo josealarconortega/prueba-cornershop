@@ -6,7 +6,7 @@ import inject
 from api.application.repositories import MenusRepository, UsuarioMenusRepository, UsuariosRepository
 from api.application.ports import SlackGateway
 from api.domain.entities import Menu, UsuarioMenu
-from datetime import date
+from datetime import date, datetime
 import typing
 @dataclass
 class MenuDescripcionDTO:
@@ -15,7 +15,9 @@ class MenuDescripcionDTO:
     ensalada: str
     plato_fondo: str
     postre: str
-    status_id: str
+    status_id: int
+    fecha_menu: datetime 
+    orden: int
 @dataclass
 class MenuInputDto:
     usuario_id: int
@@ -42,10 +44,10 @@ class MakeNewMenuUseCase:
         status = 400
         message = ""
         usuario = self.usuario_repo.get_by_id(input_dto.usuario_id)
-        menu = None
+        menus = []
         if usuario is not None:
             i = 0
-            menus = []
+            
             for menu in input_dto.menus:
                 menu = self.menu_repo.save(Menu(None, menu.descripcion, menu.entrada, menu.ensalada, menu.plato_fondo, menu.postre, date.today(), input_dto.usuario_id, menu.fecha_menu, menu.status_id, menu.orden))
                 if menu is not None:

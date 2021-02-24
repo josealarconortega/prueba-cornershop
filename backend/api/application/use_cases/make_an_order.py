@@ -29,12 +29,6 @@ class MakeAnOrderUseCase:
     usuario_menu_repo: UsuarioMenusRepository = inject.attr(UsuarioMenusRepository)
     usuario_repo: UsuariosRepository = inject.attr(UsuariosRepository)
 
-    #slack_gateway: SlackGateway = inject.attr(SlackGateway)
-
-    #@inject.params(presenter=PlacingBidOutputBoundary)
-    #def __init__(self, presenter: PlacingBidOutputBoundary) -> None:
-    #    self.presenter = presenter
-    #@serialize_exceptions
     def execute(self, input_dto: MenuInputDto) -> MenuMakeOutputDto:
         code = 0
         data = None

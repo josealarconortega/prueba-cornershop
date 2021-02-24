@@ -114,7 +114,7 @@ class DjangoORMMenusRepository(MenusRepository):
         try:
             usuario_instance = UsuarioModel.objects.get(id=menu.usuario_creacion_id)
             status_instance = StatusModel.objects.get(id=menu.status_id)
-            menu_model = MenuModel(id = menu.id, descripcion = menu.descripcion, entrada = menu.entrada,  
+            menu_model = MenuModel(descripcion = menu.descripcion, entrada = menu.entrada,  
                 ensalada = menu.ensalada, plato_fondo = menu.plato_fondo, postre = menu.postre,
                 fecha_registro = menu.fecha_registro, usuario_creacion = usuario_instance , fecha_menu = menu.fecha_menu, status = status_instance, orden = menu.orden)
             menu_model.save()

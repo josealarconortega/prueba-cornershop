@@ -11,7 +11,7 @@ import typing
 import uuid
 @dataclass
 class MenuInputDto:
-    rut: int
+    rut: str
     nombre: int
     email: str
     perfil_id: str
