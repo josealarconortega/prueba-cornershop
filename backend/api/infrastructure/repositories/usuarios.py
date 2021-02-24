@@ -62,8 +62,8 @@ class DjangoORMUsuariosRepository(UsuariosRepository):
         from api.models import Usuario as UsuarioModel
         from api.models import Perfil  as PerfilModel
         try:
-            usuario_model = UsuarioModel.objects.get(rut = rut, password = password)
-            if len(usuario_model) > 0 :
+            usuario_model = UsuarioModel.objects.filter(rut = rut, password = password).first()
+            if usuario_model is not None:
                 return Usuario(
                     id = usuario_model.id, rut = usuario_model.rut, nombre = usuario_model.nombre, email = usuario_model.email, 
                     fecha_registro = usuario_model.fecha_registro, uid = usuario_model.uid, perfil_id = usuario_model.perfil.id, password = usuario_model.password
@@ -76,7 +76,7 @@ class DjangoORMUsuariosRepository(UsuariosRepository):
         from api.models import Usuario as UsuarioModel
         from api.models import Perfil  as PerfilModel
         try:
-            perfil_instance = PerfilModel.objects.get(id=Usuario.perfil_id)
+            perfil_instance = PerfilModel.objects.get(id=usuario.perfil_id)
             model = UsuarioModel(id = usuario.id,
                     rut = usuario.rut,
                     nombre = usuario.nombre,

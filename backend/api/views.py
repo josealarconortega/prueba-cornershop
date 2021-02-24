@@ -17,19 +17,19 @@ from api.serializers import UsuarioMenuSerializer, UsuarioSerializer, MultipleMe
 from api.domain.value_objects import Response
 import hashlib 
 import os
-
+from django.conf import settings
 
 @api_view(['POST'])
 @serialize_exceptions
 def login_required(request: HttpRequest) -> HttpResponse:
     data = json.loads(request.body)
     repo: repositories.UsuariosRepository = inject.instance(repositories.UsuariosRepository)
-    usuario = repo.get_user_password(rut = data['rut'], password = hashlib.md5(data['password']))
+    usuario = repo.get_user_password(rut = data['rut'], password = hashlib.md5(data['password'].encode()).hexdigest())
     code = 0
     status = 400
     message = 'Error'
     data = None
-    if usuario is not None:
+    if usuario is None:
         message = 'Credenciales incorrectas'
         status = 500
     else:
@@ -49,7 +49,7 @@ def user_by_uid(request: HttpRequest, uid: str) -> HttpResponse:
     data = None
     repo: repositories.UsuariosRepository = inject.instance(repositories.UsuariosRepository)
     usuario = repo.get_by_uid(uid)
-    if usuario is not None:
+    if usuario is None:
         message = 'Usuario no encontrado'
         status = 500
     else:
@@ -63,16 +63,17 @@ def user_by_uid(request: HttpRequest, uid: str) -> HttpResponse:
 @serialize_exceptions
 def create_user(request: HttpRequest) -> HttpResponse:
     data = json.loads(request.body)
+    password = hashlib.md5(data['password'].encode()).hexdigest()
     input_dto = dacite.from_dict(create_new_user.MenuInputDto, {
         'rut': data['rut'],
         'nombre': data['nombre'],
         'email': data['email'],
         'perfil_id': data['perfil_id'],
-        'password': hashlib.md5(data['password']),
+        'password': password
     })
     uc = create_new_user.MakeNewUserUseCase()
     output_dto = uc.execute(input_dto)
-    response = Response(code=output_dto.code, status= output_dto.status, message = output_dto.message, data = UsuarioSerializer.serialize(output_dto.data)).toResponse()
+    response = Response(code=output_dto.code, status= output_dto.status, message = output_dto.message, data = (UsuarioSerializer.serialize(output_dto.data) if output_dto.data is not None else None)).toResponse()
     return HttpResponse(response, status=output_dto.status, content_type='application/json')
 
 
@@ -108,7 +109,7 @@ def select_menu_usuario(request: HttpRequest) -> HttpResponse:
 def confirmation_menu(request: HttpRequest) -> HttpResponse:
     data = json.loads(request.body)
     input_dto = dacite.from_dict(make_confirmation_menu.MenuInputDto, {
-        'usuario_id': data['user_id'],
+        'usuario_id': settings.PERFIL_EMPLEADO,
         'menus_id': data['menus_id'],
         'status_id': os.environ['ESTATUS_CONFIRMATION']
     })

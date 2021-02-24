@@ -19,12 +19,14 @@ class DjangoORMUsuarioMenusRepository(UsuarioMenusRepository):
         try:
             usuario_menu_models = UsuarioMenuModel.objects.select_related('usuario').filter(usuario__id = usuario_id)
             return [
-                Menu(id = usuario_menu_models.menu.id, descripcion = usuario_menu_models.menu.descripcion, entrada = usuario_menu_models.menu.entrada,  
-                ensalada = usuario_menu_models.menu.ensalada, plato_fondo = usuario_menu_models.menu.plato_fondo, postre = usuario_menu_models.menu.postre,
-                fecha_registro = usuario_menu_models.menu.fecha_registro, usuario_creacion = usuario_menu_models.menu.usuario_creacion.id , fecha_menu = usuario_menu_models.menu.fecha_menu)
+                Menu(id = menu_model_data.menu.id, descripcion = menu_model_data.menu.descripcion, entrada = menu_model_data.menu.entrada,  
+                ensalada = menu_model_data.menu.ensalada, plato_fondo = menu_model_data.menu.plato_fondo, postre = menu_model_data.menu.postre,
+                fecha_registro = menu_model_data.menu.fecha_registro, usuario_creacion_id = menu_model_data.menu.usuario_creacion.id , 
+                fecha_menu = menu_model_data.menu.fecha_menu, status_id = menu_model_data.menu.status.id, orden = menu_model_data.menu.orden )
                 for menu_model_data in usuario_menu_models
             ]
         except Exception as e:
+            print(e)
             return None
 
     def save(self, usuario_menu: UsuarioMenu) -> UsuarioMenu: 
@@ -35,7 +37,7 @@ class DjangoORMUsuarioMenusRepository(UsuarioMenusRepository):
             usuario_instance = UsuarioModel.objects.get(id=usuario_menu.usuario_id)
             menu_instance = MenuModel.objects.get(id=usuario_menu.menu_id)
             model = UsuarioMenuModel(id = usuario_menu.id,usuario = usuario_instance, menu = menu_instance,  
-                observacion = UsuarioMenu.observacion, fecha_menu = usuario_menu.fecha_registro)
+                observacion = UsuarioMenu.observacion, fecha_registro = usuario_menu.fecha_registro)
             model.save()
             return usuario_menu
         except Exception as e:

@@ -131,6 +131,8 @@ PERFIL_MANTENIMIENTO = 1
 PERFIL_EMPLEADO = 2
 
 STATUS_CONFIRMATION = 2
+URL_SELECCION_MENU = ""
+SLACK_API_TOKEN = ""
 # if LOCAL_DEPLOY:
 #     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # else:

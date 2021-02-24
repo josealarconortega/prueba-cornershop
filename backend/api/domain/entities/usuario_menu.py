@@ -16,7 +16,7 @@ class UsuarioMenu:
 
     @property
     def usuario_id(self):
-        return self._usuario
+        return self._usuario_id
 
     @property
     def menu_id(self):
@@ -29,9 +29,3 @@ class UsuarioMenu:
     @property
     def fecha_registro(self):
         return self._fecha_registro
-
-    def __eq__(self, other):
-        return self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not self == other

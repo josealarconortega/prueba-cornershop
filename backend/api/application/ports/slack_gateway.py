@@ -4,7 +4,9 @@ from abc import (
 )
 
 class SlackGateway(metaclass=ABCMeta):
-
     @abstractmethod
-    def notify_user(self, email: str, msg: str) -> None:
+    def __init__(self):
+        pass
+    @abstractmethod
+    def notify_user(self, email: str, msg: str) -> bool:
         pass

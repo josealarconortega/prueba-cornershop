@@ -13,7 +13,7 @@ import os
 
 @dataclass
 class MenuInputDto:
-    usuario_id: int
+    perfil_id: int
     menu_ids: typing.List[int]
     status_id: int
 
@@ -41,34 +41,38 @@ class ConfirmationUseCase:
         data = None
         status = 400
         message = "" 
-        usuarios = self.usuario_repo.get_all_by_perfil(settings.PERFIL_EMPLEADO)
+        usuarios = self.usuario_repo.get_all_by_perfil(input_dto.perfil_id)
         menus = self.menu_repo.get_by_id_list(input_dto.menu_ids)
         menuSTR = ""
         i = 1
-        for menu in menus:
-            menu.status_id = input_dto.status_id
-            menu = self.menu_repo.update(menu)
-            menuSTR += "Opcion " + i \
-            + (",entrada " + menu.entrada if menu.entrada is not None else '') \
-            + (", plato fondo " + menu.plato_fondo if menu.plato_fondo is not None else '') \
-            + (", ensalada "+ menu.ensalada if menu.ensalada is not None else '') \
-            + (", postre " + menu.postre if menu.postre is not None else '' ) \
-            + ". \n" 
-            i += 1
-        i = 0
-        for usuario in usuarios:
-            msg = "Hola! Comparto con ustedes el menú de hoy \n " + menuSTR + " Para seleccionar el menu, debes ingresar al siguiente link " + os.environ['URL_SELECCION_MENU'] + usuario.uid
-            if self.slack_gateway.notify_user(usuario.email, msg) == False:
+        if menus is not None and usuarios is not None :
+            for menu in menus:
+                menu.setStatus(input_dto.status_id)
+                menu = self.menu_repo.update(menu)
+                menuSTR += "Opcion " + str(i) \
+                + (",entrada " + str(menu.entrada) if menu.entrada is not None else '') \
+                + (", plato fondo " + str(menu.plato_fondo) if menu.plato_fondo is not None else '') \
+                + (", ensalada "+ str(menu.ensalada) if menu.ensalada is not None else '') \
+                + (", postre " + str(menu.postre) if menu.postre is not None else '' ) \
+                + ". \n" 
                 i += 1
-        if i == 0 :
+            i = 0
+            for usuario in usuarios:
+                msg = "Hola! Comparto con ustedes el menú de hoy \n " + menuSTR + " Para seleccionar el menu, debes ingresar al siguiente link " + settings.URL_SELECCION_MENU + usuario.uid
+                if self.slack_gateway.notify_user(usuario.email, msg) == False:
+                    i += 1
+            if i == 0 :
+                code = 0
+                status = 500
+                message = "Ocurrio un error al enviar mensaje a SLACK"
+            else:
+                code = 1
+                status = 200
+                message = "Mensajes enviados correctamente"
+        else:
             code = 0
             status = 500
-            message = "Ocurrio un error al enviar mensaje a SLACK"
-        else:
-            code = 1
-            status = 200
-            message = "Mensajes enviados correctamente"
-        
+            message = "Ocurrio un error al obtener la informacion"
         
         return MenuMakeOutputDto(
             code,

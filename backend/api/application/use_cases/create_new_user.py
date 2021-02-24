@@ -12,9 +12,9 @@ import uuid
 @dataclass
 class MenuInputDto:
     rut: str
-    nombre: int
+    nombre: str
     email: str
-    perfil_id: str
+    perfil_id: int
     password: str
 
 
@@ -39,7 +39,7 @@ class MakeNewUserUseCase:
         user = None
         if perfil is not None:
             i = 0
-            user = self.usuario_repo.save(Usuario(None, input_dto.rut, input_dto.nombre, input_dto.email, date.today(), uuid.uuid4(), input_dto.perfil_id, input_dto.password ))
+            user = self.usuario_repo.save(Usuario(None, input_dto.rut, input_dto.nombre, input_dto.email, date.today(), str(uuid.uuid4()), input_dto.perfil_id, input_dto.password ))
             if user is not None:
                 code = 1
                 status = 200

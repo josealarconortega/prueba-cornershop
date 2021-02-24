@@ -8,7 +8,7 @@ from datetime import datetime
 import typing
 
 class DjangoORMPerfilRepository(PerfilRepository):
-    @abstractmethod
+
     def get_by_id(self, id_perfil: int) -> typing.List[Perfil]:
         from api.models import (
             Perfil as PerfilModel

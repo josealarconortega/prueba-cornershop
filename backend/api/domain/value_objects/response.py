@@ -12,6 +12,6 @@ class Response:
             'code': self.code,
             'status': self.status,
             'message': self.message,
-            'data': self.dat
+            'data': self.data
         })
 

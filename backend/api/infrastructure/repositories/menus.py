@@ -51,7 +51,7 @@ class DjangoORMMenusRepository(MenusRepository):
             Status as StatusModel
         )
         try:
-            menus_model = MenuModel.objects.filter(id__in = menu_id_list).order_by('order')
+            menus_model = MenuModel.objects.filter(id__in = menu_id_list).order_by('orden')
             return [
                 Menu(id = menu_model.id, descripcion = menu_model.descripcion, entrada = menu_model.entrada,  
                 ensalada = menu_model.ensalada, plato_fondo = menu_model.plato_fondo, postre = menu_model.postre,
@@ -69,7 +69,9 @@ class DjangoORMMenusRepository(MenusRepository):
             Status as StatusModel
         )
         try:
-            menus_model = MenuModel.objects.get(fecha_registro=date).all()
+            menus_model = MenuModel.objects.filter(fecha_registro__year=date.year,
+                                  fecha_registro__month=date.month,
+                                  fecha_registro__day=date.day)
             return [
                     Menu(id = menu_model.id, descripcion = menu_model.descripcion, entrada = menu_model.entrada,  
                     ensalada = menu_model.ensalada, plato_fondo = menu_model.plato_fondo, postre = menu_model.postre,

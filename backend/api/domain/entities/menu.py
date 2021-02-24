@@ -25,11 +25,11 @@ class Menu:
 
     @property
     def entrada(self):
-        return self.__entrada
+        return self._entrada
 
     @property
     def ensalada(self):
-        return self.__ensalada
+        return self._ensalada
 
     @property
     def plato_fondo(self):
@@ -60,8 +60,5 @@ class Menu:
     def orden(self):
         return self._orden
         
-    def __eq__(self, other):
-        return self.__dict__ == other.__dict__
-
-    def __ne__(self, other):
-        return not self == other
+    def setStatus(self, status_id):
+        self._status_id = status_id

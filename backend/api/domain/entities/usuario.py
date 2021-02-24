@@ -26,10 +26,6 @@ class Usuario:
         return self._nombre
 
     @property
-    def usuario(self):
-        return self._usuario
-
-    @property
     def email(self):
         return self._email
 
@@ -48,12 +44,6 @@ class Usuario:
     @property
     def password(self):
         return self._password
-
-    #def __eq__(self, other):
-    #    return self.__dict__ == other.__dict__
-#
-    #def __ne__(self, other):
-    #    return not self == other
 
     def __str__(self):
         return f'<Usuario #{self._id}>'

@@ -12,8 +12,8 @@ class UsuarioSerializer:
             'rut': usuario.rut,
             'nombre': usuario.nombre,
             'email': usuario.email,
-            'fecha_registro': usuario.fecha_registro,
-            'uid': usuario.uid,
+            'fecha_registro': usuario.fecha_registro.strftime("%Y%M%D %H:%M:%S"),
+            'uid': str(usuario.uid),
             'perfil_id': usuario.perfil_id,
             'password': usuario.password
         }
