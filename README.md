@@ -150,29 +150,34 @@ Para el frontend se utilizo un framework de javascript llamado VUE junto a types
 
     2. Instalar y correr proyecto:
         1. Backend
-            1. Instalar
+            1. Instalar python 3
+            2. Instalar
                 >make install_backend
-            2. Inicializar Base de datos
+            3. Inicializar Base de datos
                 >make reset_database
-            3. Correr
+            4. Correr
                 >make run_backend
-            4. Correr pruebas unitarias
+            5. Correr pruebas unitarias
                 >make run_test_backend
         2. Frontend
-            1. Levantar e instalar
+            1. Instalar node desde la pagina https://nodejs.org/en/
+            2. Instalar vue
+                > npm install vue
+            3. Levantar e instalar
                 >make deploy_frontend
 
 2. (Windows), muy tedioso levantar make, en este caso se deben generar los comandos manualmente.
 
     1. Backend:
-        1. Instalar backend:
+        1. Instalar python 3
+        2. Instalar backend:
             > python -m venv backend\env
             
             > backend\env\Scripts\activate.bat
 
             > pip install -r requeriments.txt
 
-        2. Database:
+        3. Database:
             > rm api/migrations/0001_initial.py
 
             > rm db.sqlite3
@@ -185,16 +190,19 @@ Para el frontend se utilizo un framework de javascript llamado VUE junto a types
 
             > python backend\init_db.py
 
-        3. Levantar proyecto:
+        4. Levantar proyecto:
             >python backend\manage.py runserver
 
-        4. Correr unitarias:
+        5. Correr unitarias:
             >cd backend
 
             >pytest
 
     2. Frontend:
-        1. Instalar y levantar
+        1. Instalar node desde la pagina https://nodejs.org/en/
+        2. Instalar vue
+            > npm install vue
+        3. Instalar y levantar
             > cd frontend
             
             > npm install
