@@ -201,3 +201,8 @@ Para el frontend se utilizo un framework de javascript llamado VUE junto a types
 
             > npm run serve
         
+#Credenciales
+
+>Usuario: 11.111.111-1
+
+>password: qwerty123

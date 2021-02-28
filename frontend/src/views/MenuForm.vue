@@ -107,7 +107,7 @@
               <div v-if="this.idMenu == 0">Guardar</div></b-button
             >
             <b-button
-              v-if="this.idUsuarioNew != 0"
+              v-if="this.idUsuario != 0"
               class="float-left"
               type="button"
               variant="danger"
@@ -348,10 +348,16 @@ export default class MenuForm extends Vue {
             }
             i += 1;
           }
-          if (flag == 1 || i == 1) {
+          if (flag == 1) {
             this.botonConfirmarVisible = 0;
             this.$store.state.alert = {
               message: "No se puede volver a confirmar un menu ya enviado",
+              type: "info"
+            };
+          } else if (i == 1) {
+            this.botonConfirmarVisible = 0;
+            this.$store.state.alert = {
+              message: "No existen menus",
               type: "info"
             };
           }
