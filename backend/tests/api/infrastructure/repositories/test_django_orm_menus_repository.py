@@ -125,7 +125,7 @@ def test_saves_menu_changes(menu_usuario_menu_model_create: MenuModel) -> None:
     menu = Menu(id = None, descripcion = 'test', entrada = 'entrada',  
                 ensalada = 'ensalada', plato_fondo = 'plato_fondo', postre = 'postre',
                 fecha_registro = '2021-01-01', usuario_creacion_id = menu_usuario_menu_model_create.usuario_creacion.id , 
-                fecha_menu = '2021-01-01', status_id = menu_usuario_menu_model_create.status.id , orden = 0)
+                fecha_menu = '2021-01-01', status_id = menu_usuario_menu_model_create.status.id, status_descripcion= menu_usuario_menu_model_create.status.descripcion, orden = 0)
 
     menu_save = DjangoORMMenusRepository().save(menu)
 

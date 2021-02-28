@@ -17,6 +17,8 @@ class MenuSerializer:
                 'postre': menu.postre,
                 'fecha_registro': menu.fecha_registro.strftime("%Y%M%D %H:%M:%S"),
                 'usuario_creacion_id':menu.usuario_creacion_id,
-                'fecha_menu': menu.fecha_menu.strftime("%Y%M%D %H:%M:%S")
+                'fecha_menu': menu.fecha_menu.strftime("%Y%M%D %H:%M:%S"),
+                'status_id': menu.status_id,
+                'status_descripcion': menu.status_descripcion
             }
 

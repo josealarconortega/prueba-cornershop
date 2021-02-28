@@ -64,7 +64,6 @@ def test_saves_usuario_menus_changes(menu_usuario_model_create: UsuarioMenuModel
     usuario_menu = UsuarioMenu(id = None, usuario_id = usuario_created.id, menu_id = menu_usuario_model_create.menu.id, observacion= 'TEST', fecha_registro = date.today())
 
     usuario_menu_save = DjangoORMUsuarioMenusRepository().save(usuario_menu)
-    print(usuario_menu_save)
     assert usuario_menu_save.usuario_id == usuario_created.id
     assert usuario_menu_save.menu_id == menu_usuario_model_create.menu.id
 

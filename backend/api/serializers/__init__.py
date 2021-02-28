@@ -4,3 +4,5 @@ from api.serializers.UsuarioMenuSerializer import UsuarioMenuSerializer
 from api.serializers.UsuarioMenuSerializer import MultipleUsuarioMenuSerializer
 from api.serializers.UsuarioSerializer import UsuarioSerializer
 from api.serializers.UsuarioSerializer import MultipleUsuarioSerializer
+from api.serializers.PerfilSerializer import PerfilSerializer
+from api.serializers.PerfilSerializer import MultiplePerfilSerializer

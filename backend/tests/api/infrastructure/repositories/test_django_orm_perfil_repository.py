@@ -26,7 +26,7 @@ def perfil_model_create() -> PerfilModel:
     return perfil
 
 @pytest.mark.usefixtures('transactional_db')
-def test_gets_by_id_existing_menu(perfil_model_create: PerfilModel) -> None:
-    menu = DjangoORMPerfilRepository().get_by_id(perfil_model_create.id)
-    assert menu.id == perfil_model_create.id
-    assert menu.descripcion == perfil_model_create.descripcion
+def test_gets_by_id_existing_perfil(perfil_model_create: PerfilModel) -> None:
+    perfil = DjangoORMPerfilRepository().get_by_id(perfil_model_create.id)
+    assert perfil.id == perfil_model_create.id
+    assert perfil.descripcion == perfil_model_create.descripcion

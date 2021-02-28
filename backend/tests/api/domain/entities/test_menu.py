@@ -9,7 +9,7 @@ def create_menu() -> Menu:
     return Menu(id = 1, descripcion = 'test', entrada = 'entrada',  
                 ensalada = 'ensalada', plato_fondo = 'plato_fondo', postre = 'postre',
                 fecha_registro = '2021-01-01', usuario_creacion_id = 1, 
-                fecha_menu = '2021-01-01', status_id = 1, orden = 1)
+                fecha_menu = '2021-01-01', status_id = 1, status_descripcion = "Mantencion", orden = 1)
 
 
 def test_all_attributos():

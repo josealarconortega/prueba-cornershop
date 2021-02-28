@@ -11,6 +11,7 @@ import typing
 import uuid
 @dataclass
 class MenuInputDto:
+    usuario_id: int
     rut: str
     nombre: str
     email: str
@@ -38,16 +39,22 @@ class MakeNewUserUseCase:
         perfil = self.perfil_repo.get_by_id(input_dto.perfil_id)
         user = None
         if perfil is not None:
-            i = 0
-            user = self.usuario_repo.save(Usuario(None, input_dto.rut, input_dto.nombre, input_dto.email, date.today(), str(uuid.uuid4()), input_dto.perfil_id, perfil.descripcion, input_dto.password ))
+            usuario_dto = self.usuario_repo.get_by_id(input_dto.usuario_id)
+            usuario_dto.setRut(input_dto.rut)
+            usuario_dto.setNombre(input_dto.nombre)
+            usuario_dto.setEmail(input_dto.email)
+            usuario_dto.setPerfilId(input_dto.perfil_id)
+            usuario_dto.setPerfilDescripcion(perfil.descripcion)
+            usuario_dto.setPassword(input_dto.password)
+            user = self.usuario_repo.update(usuario_dto)
             if user is not None:
                 code = 1
                 status = 200
-                message = "Usuario registrado correctamente"
+                message = "Usuario actualizado correctamente"
             else:
                 code = 0
                 status = 500
-                message = "Error al registrar el usuario"
+                message = "Error al actualizar el usuario"
         else:
             code = 0
             status = 500

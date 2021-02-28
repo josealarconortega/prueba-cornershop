@@ -25,10 +25,18 @@ class UsuariosRepository(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def get_user_password(self, rut: str, password: str) -> Usuario:
+    def get_user_password(self, rut: str, password: str, perfil_id: int) -> Usuario:
+        pass
+
+    @abstractmethod
+    def update(self, usuario: Usuario) -> Usuario:
         pass
 
     @abstractmethod
     def save(self, usuario: Usuario) -> Usuario:
+        pass
+
+    @abstractmethod
+    def delete(self, usuario_id: int) -> bool:
         pass
 

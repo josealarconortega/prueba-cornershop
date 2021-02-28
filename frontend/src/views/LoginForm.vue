@@ -56,6 +56,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import api from "../services/api";
+import rut from "rut.js";
 
 @Component
 export default class LoginForm extends Vue {
@@ -63,30 +64,43 @@ export default class LoginForm extends Vue {
   password = "";
   login() {
     if (this.rut && this.password) {
-      api
-        .post("usuario/login", {
-          formData: {
-            rut: this.rut,
-            password: this.password,
-            perfilId: process.env.VUE_PERFIL_ID
-          }
-        })
-        .then(response => {
-          if (response.status == 200) {
-            localStorage.setItem("id_usuario", response.data.data.id);
-            this.$router.push({ name: "Home" });
-          } else {
+      if (!rut.validate(this.rut)) {
+        alert("Ingrese rut valido");
+      } else {
+        const perfilId =
+          process.env.VUE_APP_PERFIL_ID_MANTENIMIENTO == null
+            ? ""
+            : process.env.VUE_APP_PERFIL_ID_MANTENIMIENTO;
+        api
+          .post("usuarios/login", {
+            rut: rut.format(this.rut),
+            password: this.password, // eslint-disable-next-line
+            perfil_id: parseInt(perfilId)
+          })
+          .then(response => {
+            if (response.status == 200) {
+              localStorage.setItem("id_usuario", response.data.data.id);
+              window.location.href = "/";
+            } else {
+              this.$store.state.autenticate = false;
+              this.$store.state.alert = {
+                message: "Error al ingresar clave o rut",
+                type: "danger"
+              };
+            }
+          })
+          .catch(() => {
             this.$store.state.autenticate = false;
             this.$store.state.alert = {
               message: "Error al ingresar clave o rut",
-              type: "error"
+              type: "danger"
             };
-          }
-        });
+          });
+      }
     } else {
       this.$store.state.alert = {
-        message: "Debe indicar sistema, usuario y contraseña",
-        type: "error"
+        message: "Debe ingresar rut y contraseña",
+        type: "danger"
       };
     }
   }

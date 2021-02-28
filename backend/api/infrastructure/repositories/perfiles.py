@@ -18,3 +18,16 @@ class DjangoORMPerfilRepository(PerfilRepository):
             return Perfil(id = perfil_model.id, descripcion = perfil_model.descripcion)
         except Exception as e:
             return None
+
+    def get_all(self) -> Perfil:
+        from api.models import (
+            Perfil as PerfilModel
+        )
+        try:
+            perfiles_model = PerfilModel.objects.all()
+            return [
+                Perfil(id = perfil_model.id, descripcion = perfil_model.descripcion)
+                for perfil_model in perfiles_model
+            ]
+        except Exception as e:
+            return None

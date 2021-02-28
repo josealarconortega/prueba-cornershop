@@ -10,6 +10,7 @@ from datetime import date, datetime
 import typing
 @dataclass
 class MenuDescripcionDTO:
+    menu_id: int
     descripcion: str
     entrada: str
     ensalada: str
@@ -29,7 +30,7 @@ class MenuMakeOutputDto:
     message: str
     data: typing.List[Menu]
 
-class MakeNewMenuUseCase:
+class UpdateMenuUseCase:
     menu_repo: MenusRepository = inject.attr(MenusRepository)
     #usuario_menu_repo: UsuarioMenusRepository = inject.attr(UsuarioMenusRepository)
     usuario_repo: UsuariosRepository = inject.attr(UsuariosRepository)
@@ -47,10 +48,14 @@ class MakeNewMenuUseCase:
         if usuario is not None:
             i = 0
             
-            for menu in input_dto.menus:
-                menu_orden = self.menu_repo.get_by_date(datetime.strptime(str(menu.fecha_menu), '%Y-%m-%d %H:%M:%S'))
-                orden = len(menu_orden) + 1
-                menu = self.menu_repo.save(Menu(None, menu.descripcion, menu.entrada, menu.ensalada, menu.plato_fondo, menu.postre, date.today(), input_dto.usuario_id, datetime.strptime(str(menu.fecha_menu), '%Y-%m-%d %H:%M:%S'), menu.status_id, "", orden))
+            for menu_input in input_dto.menus:
+                menu_dto = self.menu_repo.get_by_id(menu_input.menu_id)
+                menu_dto.setId(menu_input.menu_id)
+                menu_dto.setDescripcion(menu_input.descripcion)
+                menu_dto.setEntrada(menu_input.entrada)
+                menu_dto.setEnsalada(menu_input.plato_fondo)
+                menu_dto.setPostre(menu_input.postre)
+                menu = self.menu_repo.update(menu_dto)
                 if menu is not None:
                     menus.append(menu)
                     i += 1 

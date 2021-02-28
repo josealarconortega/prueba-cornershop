@@ -16,3 +16,6 @@ def inject_config(binder: inject.Binder) -> None:
 class ApiConfig(AppConfig):
     name = 'api'
     
+    def ready(self) -> None:
+        super().ready()
+        inject.configure(inject_config)

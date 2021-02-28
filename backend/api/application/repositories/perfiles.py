@@ -9,5 +9,8 @@ import typing
 
 class PerfilRepository(metaclass=ABCMeta):
     @abstractmethod
-    def get_by_id(self, id_perfil: int) -> typing.List[Perfil]:
+    def get_by_id(self, id_perfil: int) -> Perfil:
+        pass
+    @abstractmethod
+    def get_all(self) -> typing.List[Perfil]:
         pass

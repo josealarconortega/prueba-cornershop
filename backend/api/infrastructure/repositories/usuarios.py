@@ -14,7 +14,7 @@ class DjangoORMUsuariosRepository(UsuariosRepository):
             usuario_model = UsuarioModel.objects.get(id=usuario_id)
             return Usuario(
                 id = usuario_model.id, rut = usuario_model.rut, nombre = usuario_model.nombre, email = usuario_model.email, 
-                fecha_registro = usuario_model.fecha_registro, uid = usuario_model.uid, perfil_id = usuario_model.perfil.id, password = usuario_model.password
+                fecha_registro = usuario_model.fecha_registro, uid = usuario_model.uid, perfil_id = usuario_model.perfil.id, perfil_descripcion = usuario_model.perfil.descripcion, password = usuario_model.password
             )
         except Exception as e:
             return None
@@ -27,7 +27,7 @@ class DjangoORMUsuariosRepository(UsuariosRepository):
             return [
                 Usuario(id = usuario_model.id, rut = usuario_model.rut, nombre = usuario_model.nombre, 
                 email = usuario_model.email, fecha_registro = usuario_model.fecha_registro, uid = usuario_model.uid, 
-                perfil_id = usuario_model.perfil.id, password = usuario_model.password)
+                perfil_id = usuario_model.perfil.id, perfil_descripcion = usuario_model.perfil.descripcion, password = usuario_model.password)
                 for usuario_model in usuarios_model
             ]
         except Exception as e:
@@ -40,7 +40,7 @@ class DjangoORMUsuariosRepository(UsuariosRepository):
             return [
                 Usuario(id = usuario_model.id, rut = usuario_model.rut, nombre = usuario_model.nombre, 
                 email = usuario_model.email, fecha_registro = usuario_model.fecha_registro, uid = usuario_model.uid, 
-                perfil_id = usuario_model.perfil.id, password = usuario_model.password)
+                perfil_id = usuario_model.perfil.id, perfil_descripcion = usuario_model.perfil.descripcion, password = usuario_model.password)
                 for usuario_model in usuarios_model
             ]
         except Exception as e:
@@ -53,25 +53,45 @@ class DjangoORMUsuariosRepository(UsuariosRepository):
             usuario_model = UsuarioModel.objects.get(uid=uid)
             return Usuario(
                 id = usuario_model.id, rut = usuario_model.rut, nombre = usuario_model.nombre, email = usuario_model.email, 
-                fecha_registro = usuario_model.fecha_registro, uid = usuario_model.uid, perfil_id = usuario_model.perfil.id, password = usuario_model.password
+                fecha_registro = usuario_model.fecha_registro, uid = usuario_model.uid, perfil_id = usuario_model.perfil.id, perfil_descripcion = usuario_model.perfil.descripcion, password = usuario_model.password
             )
         except Exception as e:
             return None
 
-    def get_user_password(self, rut: str, password: str) -> Usuario:
+    def get_user_password(self, rut: str, password: str, perfil_id: int) -> Usuario:
         from api.models import Usuario as UsuarioModel
         from api.models import Perfil  as PerfilModel
         try:
-            usuario_model = UsuarioModel.objects.filter(rut = rut, password = password).first()
+            usuario_model = UsuarioModel.objects.filter(rut = rut, password = password, perfil_id = perfil_id).first()
             if usuario_model is not None:
                 return Usuario(
                     id = usuario_model.id, rut = usuario_model.rut, nombre = usuario_model.nombre, email = usuario_model.email, 
-                    fecha_registro = usuario_model.fecha_registro, uid = usuario_model.uid, perfil_id = usuario_model.perfil.id, password = usuario_model.password
+                    fecha_registro = usuario_model.fecha_registro, uid = usuario_model.uid, perfil_id = usuario_model.perfil.id, 
+                    perfil_descripcion = usuario_model.perfil.descripcion, password = usuario_model.password
                 )
             else:
                 return None
         except Exception as e:
             return None
+
+    def update(self, usuario: Usuario) -> Usuario:
+        from api.models import Usuario as UsuarioModel
+        from api.models import Perfil  as PerfilModel
+        try:
+            usuario_model = UsuarioModel.objects.get(id=usuario.id)
+            perfil_instance = PerfilModel.objects.get(id=usuario.perfil_id)
+
+            usuario_model.rut = usuario.rut
+            usuario_model.nombre = usuario.nombre
+            usuario_model.email = usuario.email
+            usuario_model.perfil = perfil_instance
+            usuario_model.password = usuario.password
+            usuario_model.save()
+            return usuario
+
+        except Exception as e:
+            return None
+
     def save(self, usuario: Usuario) -> Usuario:
         from api.models import Usuario as UsuarioModel
         from api.models import Perfil  as PerfilModel
@@ -89,3 +109,14 @@ class DjangoORMUsuariosRepository(UsuariosRepository):
             return usuario
         except Exception as e:
             return None
+
+    def delete(self, usuario_id: int) -> bool: 
+        from api.models import (
+            Usuario as UsuarioModel
+        )
+        try:
+            usuario_model = UsuarioModel.objects.get(id=usuario_id)
+            usuario_model.delete()
+            return True
+        except Exception as e:
+            return False

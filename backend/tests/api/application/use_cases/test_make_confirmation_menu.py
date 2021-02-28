@@ -35,6 +35,7 @@ def status_id() -> str:
 def input_dto(exemplary_perfil_id_empleado: int, exemplary_menus_ids: [int], exemplary_status_id: int) -> MenuInputDto:
     return MenuInputDto(exemplary_perfil_id_empleado, exemplary_menus_ids, exemplary_status_id)
 
+@pytest.mark.usefixtures('transactional_db')
 def test_loads_user_using_id_found(
         exemplary_perfil_id_empleado: int,
         usuario_repo_mock: Mock,
@@ -43,6 +44,7 @@ def test_loads_user_using_id_found(
     ConfirmationUseCase().execute(input_dto)
     usuario_repo_mock.get_all_by_perfil.assert_called_once_with(exemplary_perfil_id_empleado)
 
+@pytest.mark.usefixtures('transactional_db')
 def test_loads_user_using_id_not_found(
         exemplary_perfil_id_empleado: int,
         usuario_repo_mock: Mock,
@@ -52,6 +54,7 @@ def test_loads_user_using_id_not_found(
     ConfirmationUseCase().execute(input_dto)
     usuario_repo_mock.get_all_by_perfil.assert_called_once_with(exemplary_perfil_id_empleado)
 
+@pytest.mark.usefixtures('transactional_db')
 def test_loads_user_using_slack_found(
         exemplary_perfil_id_empleado: int,
         slack_gateway_adapters_mock: Mock,

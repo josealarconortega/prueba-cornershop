@@ -52,8 +52,8 @@ def orden() -> int:
     return 1
 
 @pytest.fixture()
-def descripcion_menu_dto(descripcion: str, entrada: str, ensalada: str, plato_fondo: str, postre: str, status_id: int, fecha_menu: str, orden: int) -> MenuDescripcionDTO:
-    return [MenuDescripcionDTO(descripcion, entrada, ensalada, plato_fondo, postre, status_id, fecha_menu, orden)]
+def descripcion_menu_dto(descripcion: str, entrada: str, ensalada: str, plato_fondo: str, postre: str, status_id: int, fecha_menu: str) -> MenuDescripcionDTO:
+    return [MenuDescripcionDTO(descripcion, entrada, ensalada, plato_fondo, postre, status_id, fecha_menu)]
 
 @pytest.fixture()
 def input_dto(exemplary_usuario_id: int, descripcion_menu_dto: typing.List[MenuDescripcionDTO]) -> MenuInputDto:

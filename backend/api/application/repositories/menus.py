@@ -23,6 +23,9 @@ class MenusRepository(metaclass=ABCMeta):
     @abstractmethod
     def get_by_date(self, date: datetime ) -> typing.List[Menu]:
         pass
+    @abstractmethod
+    def get_by_date_status(self, date: datetime, get_by_date_status: int ) -> typing.List[Menu]:
+        pass
     
     @abstractmethod
     def update(self, menu: Menu) -> Menu:
@@ -32,6 +35,7 @@ class MenusRepository(metaclass=ABCMeta):
     def save(self, menu: Menu) -> Menu: 
         pass
 
-
+    def delete(self, menu_id: int) -> bool:
+        pass
 
 

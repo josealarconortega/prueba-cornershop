@@ -14,7 +14,7 @@ from datetime import date
 class MenuInputDto:
     usuario_id: int
     menu_id: int
-    descripcion: str
+    observacion: str
 
 @dataclass
 class MenuMakeOutputDto:
@@ -39,7 +39,7 @@ class MakeAnOrderUseCase:
         usuario_menu = None
         if menu is not None:
             if usuario is not None:
-                usuario_menu = self.usuario_menu_repo.save(UsuarioMenu(None, usuario.id, menu.id, input_dto.descripcion, date.today()))
+                usuario_menu = self.usuario_menu_repo.save(UsuarioMenu(None, usuario.id, menu.id, input_dto.observacion, date.today(), usuario, menu))
                 if usuario_menu is not None:
                     code = 1
                     status = 200

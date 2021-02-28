@@ -55,7 +55,7 @@ def menu(exemplary_menu_id: int) -> Menu:
     return Menu(id = exemplary_menu_id, descripcion = 'test', entrada = 'entrada',  
                 ensalada = 'ensalada', plato_fondo = 'plato_fondo', postre = 'postre',
                 fecha_registro = 'fecha_registro', usuario_creacion_id = 1, 
-                fecha_menu = '2021-01-01', status_id = 1, orden = 1)
+                fecha_menu = '2021-01-01', status_id = 1, status_descripcion = "Mantencion", orden = 1)
 @pytest.fixture()
 def usuario(exemplary_usuario_id: int) -> Usuario:
     return Usuario(id = exemplary_usuario_id,rut = '11.111.111-1', nombre = 'nombre', 
@@ -74,7 +74,7 @@ def usuario_menu(exemplary_usuario_menu_id: int) -> Perfil:
 
 @pytest.fixture()
 def menu_repo_mock(menu: Menu) -> Mock:
-    return Mock(spec_set=MenusRepository, get_by_id=Mock(return_value=menu), save = Mock(return_value=menu), get_by_id_list =  Mock(return_value=[menu]))
+    return Mock(spec_set=MenusRepository, get_by_id=Mock(return_value=menu), save = Mock(return_value=menu), get_by_id_list =  Mock(return_value=[menu]), get_by_date = Mock(return_value=[menu]))
 
 @pytest.fixture()
 def usuario_repo_mock(usuario: Usuario) -> Mock:

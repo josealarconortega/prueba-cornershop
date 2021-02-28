@@ -10,6 +10,7 @@ from datetime import date
 import typing
 from django.conf import settings
 import os
+from django.db import transaction
 
 @dataclass
 class MenuInputDto:
@@ -45,34 +46,37 @@ class ConfirmationUseCase:
         menus = self.menu_repo.get_by_id_list(input_dto.menu_ids)
         menuSTR = ""
         i = 1
-        if menus is not None and usuarios is not None :
-            for menu in menus:
-                menu.setStatus(input_dto.status_id)
-                menu = self.menu_repo.update(menu)
-                menuSTR += "Opcion " + str(i) \
-                + (",entrada " + str(menu.entrada) if menu.entrada is not None else '') \
-                + (", plato fondo " + str(menu.plato_fondo) if menu.plato_fondo is not None else '') \
-                + (", ensalada "+ str(menu.ensalada) if menu.ensalada is not None else '') \
-                + (", postre " + str(menu.postre) if menu.postre is not None else '' ) \
-                + ". \n" 
-                i += 1
-            i = 0
-            for usuario in usuarios:
-                msg = "Hola! Comparto con ustedes el menú de hoy \n " + menuSTR + " Para seleccionar el menu, debes ingresar al siguiente link <http://" + settings.URL_SELECCION_MENU + usuario.uid + "|Reservar>"
-                if self.slack_gateway.notify_user(usuario.email, msg) == False:
+        with transaction.atomic():
+            if menus is not None and usuarios is not None :
+                for menu in menus:
+                    menu.setStatus(input_dto.status_id)
+                    menu = self.menu_repo.update(menu)
+                    menuSTR += "Opcion " + str(i) \
+                    + (",entrada " + str(menu.entrada) if menu.entrada is not None else '') \
+                    + (", plato fondo " + str(menu.plato_fondo) if menu.plato_fondo is not None else '') \
+                    + (", ensalada "+ str(menu.ensalada) if menu.ensalada is not None else '') \
+                    + (", postre " + str(menu.postre) if menu.postre is not None else '' ) \
+                    + ". \n" 
                     i += 1
-            if i > 0 :
+                i = 0
+                for usuario in usuarios:
+                    msg = "Hola! Comparto con ustedes el menú de hoy \n " + menuSTR + " Para seleccionar el menu, debes ingresar al siguiente link <" + settings.URL_SELECCION_MENU + usuario.uid + " |Reservar>"
+                    if self.slack_gateway.notify_user(usuario.email, msg) == False:
+                        i += 1
+                if i > 0 :
+                    transaction.set_rollback(True)
+                    code = 0
+                    status = 500
+                    message = "Ocurrio un error al enviar mensaje a SLACK"
+                else:
+                    code = 1
+                    status = 200
+                    message = "Mensajes enviados correctamente"
+            else:
                 code = 0
                 status = 500
-                message = "Ocurrio un error al enviar mensaje a SLACK"
-            else:
-                code = 1
-                status = 200
-                message = "Mensajes enviados correctamente"
-        else:
-            code = 0
-            status = 500
-            message = "Ocurrio un error al obtener la informacion"
+                message = "Ocurrio un error al obtener la informacion"
+                transaction.set_rollback(True)
         
         return MenuMakeOutputDto(
             code,

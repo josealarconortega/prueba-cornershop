@@ -4,7 +4,7 @@ from api.domain.entities.perfil import Perfil
 from api.domain.entities.menu import Menu
 
 class Usuario:
-    def __init__(self, id: Optional[int], nombre: str, rut: str, email: str, fecha_registro: str, uid: str, perfil_id: int, password: str) -> None:
+    def __init__(self, id: Optional[int], rut: str, nombre: str, email: str, fecha_registro: str, uid: str, perfil_id: int, perfil_descripcion: str, password: str) -> None:
         self._id = id
         self._rut = rut
         self._nombre = nombre
@@ -12,6 +12,7 @@ class Usuario:
         self._fecha_registro = fecha_registro
         self._uid = uid
         self._perfil_id = perfil_id
+        self._perfil_descripcion = perfil_descripcion
         self._password = password
     @property
     def id(self):
@@ -42,8 +43,33 @@ class Usuario:
         return self._perfil_id
 
     @property
+    def perfil_descripcion(self):
+        return self._perfil_descripcion
+
+    @property
     def password(self):
         return self._password
+
+    def setId(self, menu_id: int):
+        self._id = menu_id
+
+    def setRut(self, rut: str):
+        self._rut = rut
+
+    def setNombre(self, nombre: str):
+        self._nombre = nombre
+
+    def setEmail(self, email: str):
+        self._email = email
+
+    def setPerfilId(self, perfil_id: int):
+        self._perfil_id = perfil_id
+
+    def setPerfilDescripcion(self, perfil_descripcion: str):
+        self._perfil_descripcion = perfil_descripcion
+
+    def setPassword(self, password: str):
+        self._password = password
 
     def __str__(self):
         return f'<Usuario #{self._id}>'
