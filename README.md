@@ -146,7 +146,8 @@ Para el frontend se utilizo un framework de javascript llamado VUE junto a types
             2.  sudo apt install make
 
         2. Max os x
-            brew install make
+            > /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+            > brew install make
 
     2. Instalar y correr proyecto:
         1. Backend
