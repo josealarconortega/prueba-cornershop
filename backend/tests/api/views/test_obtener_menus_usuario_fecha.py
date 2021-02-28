@@ -2,20 +2,18 @@ import pytest
 from django.test import Client
 from django.urls import reverse
 
-from api.models import (Menu as MenuModel,
-                        Usuario as UsuarioModel)
+from api.models import UsuarioMenu as UsuarioMenuModel
 import json
-import datetime
+from unittest.mock import Mock, PropertyMock
+from django.test import TestCase, RequestFactory
 
 @pytest.mark.usefixtures('transactional_db')
-def test_select_menu_usuario_success(
-        usuario_empleado_with: UsuarioModel, menu_with: MenuModel
+def test_menu_usuario_id_fecha_passed(
+        usuario_menu_with: UsuarioMenuModel
 ) -> None:
-    url = reverse('select_menu_usuario')
+    url = reverse('obtener_menus_usuario_fecha')
     data = json.dumps({
-        'user_id': usuario_empleado_with.id,
-        'menu_id':  menu_with.id,
-        'observacion': 'TEST'
+        'fecha_menu': usuario_menu_with.menu.fecha_menu.strftime("%Y-%m-%d %H:%M:%S")
     })
     response = Client().post(url, data, content_type='application/json').content.decode()
     output_dto = json.loads(response)

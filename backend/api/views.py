@@ -245,7 +245,7 @@ def editar_usuario(request: HttpRequest) -> HttpResponse:
         'perfil_id': data['perfil_id'],
         'password': password,
     })
-    uc = update_new_user.MakeNewUserUseCase()
+    uc = update_new_user.UpdateUserUseCase()
     output_dto = uc.execute(input_dto)
     response = Response(code=output_dto.code, status= output_dto.status, message = output_dto.message, data = (UsuarioSerializer.serialize(output_dto.data) if output_dto.data is not None else None)).toResponse()
     return HttpResponse(response, status=output_dto.status, content_type='application/json')
@@ -253,7 +253,6 @@ def editar_usuario(request: HttpRequest) -> HttpResponse:
 @api_view(['DELETE'])
 def eliminar_usuario(request: HttpRequest, usuario_id: int) -> HttpResponse:
     repo: repositories.UsuariosRepository = inject.instance(repositories.UsuariosRepository)
-    usuario = repo.get_by_id(usuario_id)
     code = 0
     status = 400
     message = 'Error'

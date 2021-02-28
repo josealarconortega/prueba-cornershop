@@ -82,7 +82,7 @@ def test_gets_by_by_uid(usuario_model_create: UsuarioMenuModel) -> None:
 
 @pytest.mark.usefixtures('transactional_db')
 def test_gets_by_by_user_pass(usuario_model_create: UsuarioMenuModel) -> None:
-    usuario = DjangoORMUsuariosRepository().get_user_password(usuario_model_create.rut, usuario_model_create.password)
+    usuario = DjangoORMUsuariosRepository().get_user_password(usuario_model_create.rut, usuario_model_create.password, usuario_model_create.perfil.id)
     assert usuario.id == usuario_model_create.id
     assert usuario.rut == usuario_model_create.rut
     assert usuario.nombre == usuario_model_create.nombre
@@ -93,10 +93,26 @@ def test_gets_by_by_user_pass(usuario_model_create: UsuarioMenuModel) -> None:
     assert usuario.password == usuario_model_create.password
 
 @pytest.mark.usefixtures('transactional_db')
+def test_update_usuario(usuario_model_create: UsuarioMenuModel) -> None:
+    usuario_created = Usuario(
+        id = usuario_model_create.id, rut = '11.111.111-1', nombre = 'test', email = 'test@test.cl', fecha_registro = date.today(), 
+        uid = 'qwertyqw', perfil_id = usuario_model_create.perfil.id, perfil_descripcion= usuario_model_create.perfil.descripcion, password = 'test'
+    )
+    usuario_update = DjangoORMUsuariosRepository().update(usuario_created)
+    assert usuario_update.id == usuario_created.id
+    assert usuario_update.rut == usuario_created.rut
+    assert usuario_update.nombre == usuario_created.nombre
+    assert usuario_update.email == usuario_created.email
+    assert usuario_update.fecha_registro.strftime("%Y%M%D %H:%M:%S") == usuario_created.fecha_registro.strftime("%Y%M%D %H:%M:%S")
+    assert usuario_update.uid == usuario_created.uid
+    assert usuario_update.perfil_id== usuario_created.perfil_id
+    assert usuario_update.password == usuario_created.password
+
+@pytest.mark.usefixtures('transactional_db')
 def test_saves_usuario(usuario_model_create: UsuarioMenuModel) -> None:
     usuario_created = Usuario(
         id = None, rut = '11.111.111-1', nombre = 'test', email = 'test@test.cl', fecha_registro = date.today(), 
-        uid = 'qwertyqw', perfil_id = usuario_model_create.perfil.id, password = 'test'
+        uid = 'qwertyqw', perfil_id = usuario_model_create.perfil.id, perfil_descripcion= usuario_model_create.perfil.descripcion, password = 'test'
     )
     usuario_save = DjangoORMUsuariosRepository().save(usuario_created)
     assert usuario_save.rut == usuario_created.rut
@@ -107,5 +123,7 @@ def test_saves_usuario(usuario_model_create: UsuarioMenuModel) -> None:
     assert usuario_save.perfil_id== usuario_created.perfil_id
     assert usuario_save.password == usuario_created.password
 
-
-
+@pytest.mark.usefixtures('transactional_db')
+def test_delete_usuario(usuario_model_create: UsuarioMenuModel) -> None:
+    usuario_delete = DjangoORMUsuariosRepository().delete(usuario_model_create.id)
+    assert usuario_delete == True

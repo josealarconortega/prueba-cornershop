@@ -6,7 +6,7 @@ from api.domain.entities import (
 
 
 def create_usuario() -> Usuario:
-    return Usuario(id =  1, nombre =  'test', rut =  '11.111.111-1', email =  'test@test.cl', fecha_registro =  '2021-01-01', uid =  'wqer', perfil_id =  1, password =  'test')
+    return Usuario(id =  1, nombre =  'test', rut =  '11.111.111-1', email =  'test@test.cl', fecha_registro =  '2021-01-01', uid =  'wqer', perfil_id =  1, perfil_descripcion = 'Mantencion', password =  'test')
 
 
 def test_all_attributos():

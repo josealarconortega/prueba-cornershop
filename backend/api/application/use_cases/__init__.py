@@ -3,3 +3,4 @@ from api.application.use_cases.create_new_menu import MakeNewMenuUseCase
 from api.application.use_cases.make_confirmation_menu import ConfirmationUseCase
 from api.application.use_cases.create_new_user import MakeNewUserUseCase
 from api.application.use_cases.update_new_menu import UpdateMenuUseCase
+from api.application.use_cases.update_new_user import UpdateUserUseCase

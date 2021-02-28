@@ -23,11 +23,6 @@ class DjangoORMUsuarioMenusRepository(UsuarioMenusRepository):
             return [
                 UsuarioMenu().setgetByUsuarioMenuModel(usuario_menu_model_data).menu
                 for usuario_menu_model_data in usuario_menu_models
-                #Menu(id = menu_model_data.menu.id, descripcion = menu_model_data.menu.descripcion, entrada = menu_model_data.menu.entrada,  
-                #ensalada = menu_model_data.menu.ensalada, plato_fondo = menu_model_data.menu.plato_fondo, postre = menu_model_data.menu.postre,
-                #fecha_registro = menu_model_data.menu.fecha_registro, usuario_creacion_id = menu_model_data.menu.usuario_creacion.id , 
-                #fecha_menu = menu_model_data.menu.fecha_menu, status_id = menu_model_data.menu.status.id, status_descripcion = menu_model_data.menu.status.descripcion, orden = menu_model_data.menu.orden )
-                #for menu_model_data in usuario_menu_models
             ]
         except Exception as e:
             return None

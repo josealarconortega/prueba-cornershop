@@ -30,3 +30,9 @@ def test_gets_by_id_existing_perfil(perfil_model_create: PerfilModel) -> None:
     perfil = DjangoORMPerfilRepository().get_by_id(perfil_model_create.id)
     assert perfil.id == perfil_model_create.id
     assert perfil.descripcion == perfil_model_create.descripcion
+
+@pytest.mark.usefixtures('transactional_db')
+def test_gets_all_existing_perfil(perfil_model_create: PerfilModel) -> None:
+    perfiles = DjangoORMPerfilRepository().get_all()
+    assert perfiles[0].id == perfil_model_create.id
+    assert perfiles[0].descripcion == perfil_model_create.descripcion

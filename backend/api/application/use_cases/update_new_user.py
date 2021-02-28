@@ -26,7 +26,7 @@ class UserMakeOutputDto:
     message: str
     data: Usuario
 
-class MakeNewUserUseCase:
+class UpdateUserUseCase:
     perfil_repo: PerfilRepository = inject.attr(PerfilRepository)
     usuario_repo: UsuariosRepository = inject.attr(UsuariosRepository)
     

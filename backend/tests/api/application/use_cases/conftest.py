@@ -60,7 +60,7 @@ def menu(exemplary_menu_id: int) -> Menu:
 def usuario(exemplary_usuario_id: int) -> Usuario:
     return Usuario(id = exemplary_usuario_id,rut = '11.111.111-1', nombre = 'nombre', 
                 email = 'email@test.cl', fecha_registro = '2021-03-10', uid = 'wqeryure', 
-                perfil_id = 1, password = 'qwe')
+                perfil_id = 1, perfil_descripcion = 'Mantencion', password = 'qwe')
 
 
 @pytest.fixture()

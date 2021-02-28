@@ -110,6 +110,21 @@ def test_gets_by_date_existing_menu(menu_usuario_menu_model_create: MenuModel) -
     assert menus[0].orden == menu_usuario_menu_model_create.orden
 
 @pytest.mark.usefixtures('transactional_db')
+def test_gets_by_date_status_existing_menu(menu_usuario_menu_model_create: MenuModel) -> None:
+    menus = DjangoORMMenusRepository().get_by_date_status(menu_usuario_menu_model_create.fecha_registro, menu_usuario_menu_model_create.status_id )
+    assert menus[0].id == menu_usuario_menu_model_create.id
+    assert menus[0].descripcion == menu_usuario_menu_model_create.descripcion
+    assert menus[0].entrada == menu_usuario_menu_model_create.entrada
+    assert menus[0].ensalada == menu_usuario_menu_model_create.ensalada
+    assert menus[0].plato_fondo == menu_usuario_menu_model_create.plato_fondo
+    assert menus[0].postre == menu_usuario_menu_model_create.postre
+    assert menus[0].fecha_registro.strftime("%Y%M%D %H:%M:%S") == menu_usuario_menu_model_create.fecha_registro.strftime("%Y%M%D %H:%M:%S")
+    assert menus[0].usuario_creacion_id == menu_usuario_menu_model_create.usuario_creacion.id
+    assert menus[0].fecha_menu.strftime("%Y%M%D %H:%M:%S") == menu_usuario_menu_model_create.fecha_menu.strftime("%Y%M%D %H:%M:%S")
+    assert menus[0].status_id == menu_usuario_menu_model_create.status.id
+    assert menus[0].orden == menu_usuario_menu_model_create.orden
+
+@pytest.mark.usefixtures('transactional_db')
 def test_updates_menu(menu_usuario_menu_model_create: MenuModel) -> None:
     status_confirmation = StatusModel.objects.create(descripcion = 'Confirmado')
     id = menu_usuario_menu_model_create.id
@@ -131,4 +146,10 @@ def test_saves_menu_changes(menu_usuario_menu_model_create: MenuModel) -> None:
 
     assert menu_save.status_id == menu_usuario_menu_model_create.status.id
     assert menu_save.usuario_creacion_id == menu_usuario_menu_model_create.usuario_creacion.id
+
+@pytest.mark.usefixtures('transactional_db')
+def test_delete_menu_changes(menu_usuario_menu_model_create: MenuModel) -> None:
+
+    menu_delete = DjangoORMMenusRepository().delete(menu_usuario_menu_model_create.id)
+    assert menu_delete == True
 

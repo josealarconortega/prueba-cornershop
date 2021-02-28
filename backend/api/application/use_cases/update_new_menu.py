@@ -53,6 +53,7 @@ class UpdateMenuUseCase:
                 menu_dto.setId(menu_input.menu_id)
                 menu_dto.setDescripcion(menu_input.descripcion)
                 menu_dto.setEntrada(menu_input.entrada)
+                menu_dto.setPlatoFondo(menu_input.plato_fondo)
                 menu_dto.setEnsalada(menu_input.plato_fondo)
                 menu_dto.setPostre(menu_input.postre)
                 menu = self.menu_repo.update(menu_dto)
