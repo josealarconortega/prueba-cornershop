@@ -55,7 +55,10 @@ Para la comunicación entre las capas mencionadas anteriormente, se puede realiz
 
 > api/apps.py
 
-# Modelo
+# Modelo de datos
 
-El modelo utilizado para la aplicación se presenta a continuación.
+El modelo utilizado para la aplicación se presenta a continuación, se utilizo la base de datos por defecto de django (sqlite) la cual es solo un archivo.
 
+![Modelo de datos](./DiagramaER.png)
+
+# Instalación

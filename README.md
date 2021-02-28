@@ -1,56 +1,129 @@
-# Cornershop's Backend Test 
+# **Backend**
 
-This technical test requires the design and implementation (using Django) of a management system to coordinate the meal delivery for Cornershop employees.
+# **Arquitectura limpia**
 
-## After you finish your test please share this repository with: @Cornershop-hr @Alecornershop @roherrera @stichy23
+La arquitectura limpia (Clean Architecture) es una filosofía de diseño de software que separa los elementos de un diseño en niveles de anillo. Un objetivo importante de la arquitectura limpia es proporcionar a los desarrolladores una forma de organizar el código de tal manera que encapsule la lógica empresarial pero la mantenga separada del mecanismo de entrega. 
 
-Should you have any technical questions, please contact osvaldo@cornershopapp.com
-Tittle of the project: Backend-Test-(Last Name)
+![Clean Architecture](./readmeIMG/imagenCleanArchitecture.png)
 
-## Description
+## Dominio 
 
-The current process consist of a person (Nora) sending a text message via Whatsapp to all the chilean employees, the message contains today's menu with the different alternatives for lunch. 
+> backend/api/Domain
 
-> Hello!  
-> I share with you today's menu :)
->
-> Option 1: Corn pie, Salad and Dessert  
-> Option 2: Chicken Nugget Rice, Salad and Dessert  
-> Option 3: Rice with hamburger, Salad and Dessert  
-> Option 4: Premium chicken Salad and Dessert.
->
-> Have a nice day!
+En esta capa se visualizan los entities, los cuales contienen toda la lógica y datos del negocio.
 
-With the new system, Nora should be able to:
+Por ejemplo, para una matricula es necesario que exista un alumno con rut, nombre, telefono, etc
 
-- Create a menu for a specific date.
-- Send a Slack reminder with today's menu to all chilean employees (this process needs to be asynchronous).
+## Aplicación
 
-The employees should be able to:
+> backend/api/application
 
-- Choose their preferred meal (until 11 AM CLT).
-- Specify customizations (e.g. no tomatoes in the salad).
+En esta capa se encuentran todos los casos de uso del sistema, estos casos de usos representan toda la logica. Cabe mencionar que es inherente a cada aplicación.
 
-Nora should be the only user to be able to see what the Cornershop employees have requested, and to create and edit today's menu. The employees should be able to specify what they want for lunch but they shouldn't be able to see what others have requested. 
+> backend/api/application/use_cases
 
-NOTE: The slack reminders must contain an URL to today's menu with the following pattern https://nora.cornershop.io/menu/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx (an UUID), this page must not require authentication of any kind.
+Adicionalmente en esta capa se visualizan todos las interfaces 
+de la aplicación.
 
-## Aspects to be evaluated
+Estas interfaces sirven para indicar las transacciones a las bases de datos (orm) y integraciones externas, las cuales se implementaran en la siguiente capa. 
 
-Since the system is very simple (yet powerful in terms of yumminess) we'll be evaluating, these aspects:
+En el proyecto las interfaces del ORM se encuentran en la carpeta "repository"
 
-- Functionality
-- Testing
-- Documentation
-- Software design
-- Programming style
-- Appropriate framework use
+> backend/api/application/respositories
 
-## Aspects to be ignored
+Y las integraciones externas en "ports" (slack)
 
-- Visual design of the solution
-- Deployment of the solution
+> backend/api/application/ports
 
-## Restrictions
+## Infraestructura
 
-- The usage of Django's admin is forbidden.
+En esta capa como su nombre lo dice se encuentran todas las operaciones con el "fierro", en las cuales se encuentran principalmente las interacciones con bases de datos, integraciones de email, etc.
+
+En el proyecto estas integraciones se dividen en adapters (integracions externas) y repositories (orm).
+
+> backend/api/infraestructure/adapters
+
+> backend/api/infraestructure/repositories
+
+
+## UI, Framworks
+
+En esta ultima capa se encuentra la parte visual de la aplicación y su framework, en este caso como el framework es DJANGO, podemos deducir que en la api se puede encontrar la conexión a base de datos (settings.py), los urls, las views y los serializers.
+
+
+Para la comunicación entre las capas mencionadas anteriormente, se puede realizar mediante el principio de inversión de dependencias. Las cuales se encuentran implementadas en el archivo
+
+> backend/api/apps.py
+
+# Modelo de datos
+
+El modelo utilizado para la aplicación se presenta a continuación, se utilizo la base de datos por defecto de django (sqlite) la cual es solo un archivo.
+
+![Modelo de datos](./readmeIMG/DiagramaER.png)
+
+# Instalación
+
+1. **SLACK**
+
+    1. Debe crear un espacio de trabajo, en caso que no tenga, seguir los pasos indicados por slack
+    
+        ![Espacio de trabajo](./readmeIMG/slack/espacioTrabajo.png)
+
+    2. Una vez creado el espacio de trabajo habra slack
+
+    3. Pinchar arriba lado izquierdo (donde sale el nombre del espacio de trabajo)
+        ![Espacio de trabajo](./readmeIMG/slack/princharEspacioTrabajo.png)
+    
+    4. Dar click en Ajustes y administración -> Gestionar Aplicaciones
+        ![Espacio de trabajo](./readmeIMG/slack/pincharGestionarAplicaciones.png)
+
+    5. Dar click en crear apps
+        ![Espacio de trabajo](./readmeIMG/slack/pincharCrearApps.png)
+
+    6. En la nueva ventana pinchar **Create an app**
+        ![Espacio de trabajo](./readmeIMG/slack/pincharCreateAnApp.png)
+
+    7. Agregar el nombre de la app y seleccionar el espacio de trabajo creado en el paso 1, para luego pinchar en el botón **Create app**
+        ![Espacio de trabajo](./readmeIMG/slack/createASlackApp.png)
+
+    8. En la nueva ventana ir a la opción **OAuth & Permissions**
+        ![Espacio de trabajo](./readmeIMG/slack/oauthPermissions.png)
+
+    9. En la nueva pestaña agregar los siguientes **Scopes**
+        ![Espacio de trabajo](./readmeIMG/slack/agregarScopes.png)
+        > chat:write
+
+        > chat:write.customize
+
+        > users:read
+
+        > users:read.email
+
+        > users:write
+
+        ![Espacio de trabajo](./readmeIMG/slack/scopesAgregados.png)
+
+    10. Hacer mismo proceso para **User Token Scopes**, agregando los siguientes permisos
+
+        > chat:write
+
+        > users:read
+
+        > users:write
+
+        ![Espacio de trabajo](./readmeIMG/slack/agregarUserTokenScopes.png)
+
+
+
+    11. Ir al principio de la aplicación y pinchar el botón **Install to Workspace**
+        ![Espacio de trabajo](./readmeIMG/slack/installWorkspace.png)
+
+    12. Seleccionar en la nueva ventana eñ botón **Permitir**
+        ![Espacio de trabajo](./readmeIMG/slack/permitirInstallWorkspace.png)
+
+    13. En la nueva pestaña seleccionar el botón **copy**
+        ![Espacio de trabajo](./readmeIMG/slack/copiarBotToken.png)
+
+    14. Copiar token en la varible **SLACK_API_TOKEN** del settings.py ubicado en la siguiente ruta
+
+        >backend/config/settings.py
