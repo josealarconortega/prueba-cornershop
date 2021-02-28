@@ -65,7 +65,8 @@ export default class SelectMenuForm extends Vue {
     this.getNow();
     if (this.hour > 11) {
       this.$store.state.alert = {
-        message: "Hora no valida para seleccionar menu, se debe seleccionar antes de las 11",
+        message:
+          "Hora no valida para seleccionar menu, se debe seleccionar antes de las 11",
         type: "info"
       };
     }

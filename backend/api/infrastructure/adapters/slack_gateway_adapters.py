@@ -1,9 +1,9 @@
 from api.application.ports import SlackGateway
 from django.conf import settings
 
-from slack import WebClient
+from slack_sdk import WebClient
 
-from slack.errors import SlackApiError
+from slack_sdk.errors import SlackApiError
 
 class SlackGatewayAdapter(SlackGateway):
     def notify_user(self, email: str, msg: str) -> bool:

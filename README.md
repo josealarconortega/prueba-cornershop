@@ -127,3 +127,77 @@ El modelo utilizado para la aplicación se presenta a continuación, se utilizo 
     14. Copiar token en la varible **SLACK_API_TOKEN** del settings.py ubicado en la siguiente ruta
 
         >backend/config/settings.py
+
+    15. Actualmente el match de lo que se envia es el email, por lo cual cuando se realizen las pruebas, favor agregar email en la tabla usuario con el perfil Empleado de las personas de slack (esto se puede hacer en el mantenedor de usuarios).
+
+# **Frontend**
+
+
+Para el frontend se utilizo un framework de javascript llamado VUE junto a typescript , el cual trabaja a partir de estados y componentes, todas las apis se llaman a travez de interceptores el cual se define una sola vez con axios.
+
+> frontend/src/services/api.ts
+
+# Levantar proyecto
+1. (Ubuntu, Mac os x)
+    1. Instalar Make (Ubuntu, Mac os x)
+
+        1. Ubuntu
+            1. sudo apt update
+            2.  sudo apt install make
+
+        2. Max os x
+            brew install make
+
+    2. Instalar y correr proyecto:
+        1. Backend
+            1. Instalar
+                >make install_backend
+            2. Inicializar Base de datos
+                >make reset_database
+            3. Correr
+                >make run_backend
+            4. Correr pruebas unitarias
+                >make run_test_backend
+        2. Frontend
+            1. Levantar e instalar
+                >make deploy_frontend
+
+2. (Windows), muy tedioso levantar make, en este caso se deben generar los comandos manualmente.
+
+    1. Backend:
+        1. Instalar backend:
+            > python -m venv backend\env
+            
+            > backend\env\Scripts\activate.bat
+
+            > pip install -r requeriments.txt
+
+        2. Database:
+            > rm api/migrations/0001_initial.py
+
+            > rm db.sqlite3
+
+            > python backend\manage.py migrate
+            
+            > python backend\manage.py makemigrations
+
+            > python backend\manage.py migrate
+
+            > python backend\init_db.py
+
+        3. Levantar proyecto:
+            >python backend\manage.py runserver
+
+        4. Correr unitarias:
+            >cd backend
+
+            >pytest
+
+    2. Frontend:
+        1. Instalar y levantar
+            > cd frontend
+            
+            > npm install
+
+            > npm run serve
+        
