@@ -139,7 +139,7 @@ PERFIL_EMPLEADO = 2
 
 STATUS_CONFIRMATION = 2
 URL_SELECCION_MENU = "http://localhost:8080/#/Menu/" #url front
-SLACK_API_TOKEN = "xoxb-1776202371746-1783981133318-Y56wrmjzl7TG1AfsyQV5FPz8"
+SLACK_API_TOKEN = "" #Bot User OAuth Token, example: xoxb-1776202371746-1783981133318-Y56wrmjzl7TG1AfsyQV5FPz8
 # if LOCAL_DEPLOY:
 #     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # else:
