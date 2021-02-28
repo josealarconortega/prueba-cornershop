@@ -135,9 +135,6 @@
             <td>{{ item.postre }}</td>
             <td>{{ item.status }}</td>
             <td>
-              <a :href="item.id">Arriba</a> - <a :href="item.id">Abajo</a>
-            </td>
-            <td>
               <a
                 href="#"
                 @click="
@@ -201,7 +198,6 @@ export default class MenuForm extends Vue {
     "Plato Fondo",
     "Postre",
     "Status",
-    "Mover",
     "Acción"
   ];
   timestamp = ""; // eslint-disable-next-line

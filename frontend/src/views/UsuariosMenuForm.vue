@@ -62,6 +62,7 @@
             <td>{{ item.ensalada }}</td>
             <td>{{ item.platoFondo }}</td>
             <td>{{ item.postre }}</td>
+            <td>{{ item.detalle }}</td>
           </tr>
         </template>
       </DataTable>
@@ -91,7 +92,8 @@ export default class UsuariosMenuForm extends Vue {
     "Entrada",
     "Ensalada",
     "Plato Fondo",
-    "Postre"
+    "Postre",
+    "Detalles del menu"
   ]; // eslint-disable-next-line
   itemsUsuarioMenus = null as any;
   created() {
@@ -143,7 +145,8 @@ export default class UsuariosMenuForm extends Vue {
               entrada: dataUsuarioMenus[key].menu.entrada,
               ensalada: dataUsuarioMenus[key].menu.ensalada, // eslint-disable-next-line
               platoFondo: dataUsuarioMenus[key].menu.plato_fondo,
-              postre: dataUsuarioMenus[key].menu.postre
+              postre: dataUsuarioMenus[key].menu.postre,
+              detalle: dataUsuarioMenus[key].observacion
             });
           }
           this.itemsUsuarioMenus = itemsUsuarioMenus;
