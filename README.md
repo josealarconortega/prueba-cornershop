@@ -147,16 +147,23 @@ Para el frontend se utilizo un framework de javascript llamado VUE junto a types
             > pip install -r backend/requirements.txt
         3. Inicializar Base de datos
             > rm backend/api/migrations/0001_initial.py
+            
             > rm backend/db.sqlite3
+            
             > source backend/env/bin/activate
+            
             > python backend/manage.py migrate
+            
             > python backend/manage.py makemigrations
+            
             > python backend/manage.py migrate
+            
             > python backend/init_db.py
         4. Correr
             > python backend/manage.py runserver
         5. Correr pruebas unitarias
             > cd backend
+            
             > pytest
     2. Frontend
         1. Instalar node desde la pagina https://nodejs.org/en/
@@ -164,6 +171,7 @@ Para el frontend se utilizo un framework de javascript llamado VUE junto a types
             > npm install vue
         3. Levantar e instalar
             >npm install
+            
             >npm run serve
         
 # Credenciales
