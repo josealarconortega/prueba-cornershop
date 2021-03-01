@@ -180,6 +180,6 @@ Para el frontend se utilizó un framework de javascript llamado VUE junto a type
 >password: qwerty123
 
 
-# LÓgica de negocio
+# Lógica de negocio
 
 Antes de realizar cualquier acción se deben realizar los cambios en slack, luego iniciar sesión, para posterior a esto ingresar usuarios del tipo de perfil "empleado", de lo contrario el mensaje de slack no le llegará a ninguna persona.
