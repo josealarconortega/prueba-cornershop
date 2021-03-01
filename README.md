@@ -138,77 +138,32 @@ Para el frontend se utilizo un framework de javascript llamado VUE junto a types
 > frontend/src/services/api.ts
 
 # Levantar proyecto
-1. (Ubuntu, Mac os x)
-    1. Instalar Make (Ubuntu, Mac os x)
 
-        1. Ubuntu
-            1. sudo apt update
-            2.  sudo apt install make
-
-        2. Max os x
-            > /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-            > brew install make
-
-    2. Instalar y correr proyecto:
-        1. Backend
-            1. Instalar python 3
-            2. Instalar
-                >make install_backend
-            3. Inicializar Base de datos
-                >make reset_database
-            4. Correr
-                >make run_backend
-            5. Correr pruebas unitarias
-                >make run_test_backend
-        2. Frontend
-            1. Instalar node desde la pagina https://nodejs.org/en/
-            2. Instalar vue
-                > npm install vue
-            3. Levantar e instalar
-                >make deploy_frontend
-
-2. (Windows), muy tedioso levantar make, en este caso se deben generar los comandos manualmente.
-
-    1. Backend:
-        1. Instalar python 3
-        2. Instalar backend:
-            > python -m venv backend\env
-            
-            > backend\env\Scripts\activate.bat
-
-            > pip install -r requeriments.txt
-
-        3. Database:
-            > rm api/migrations/0001_initial.py
-
-            > rm db.sqlite3
-
-            > python backend\manage.py migrate
-            
-            > python backend\manage.py makemigrations
-
-            > python backend\manage.py migrate
-
-            > python backend\init_db.py
-
-        4. Levantar proyecto:
-            >python backend\manage.py runserver
-
-        5. Correr unitarias:
-            >cd backend
-
-            >pytest
-
-    2. Frontend:
+1. Instalar y correr proyecto:
+    1. Backend
+        1. Instalar python 3 y virtualenv
+        2. Instalar requerimientos
+            > pip install -r backend/requirements.txt
+        3. Inicializar Base de datos
+            > rm backend/api/migrations/0001_initial.py
+            > rm backend/db.sqlite3
+            > source backend/env/bin/activate
+            > python backend/manage.py migrate
+            > python backend/manage.py makemigrations
+            > python backend/manage.py migrate
+            > python backend/init_db.py
+        4. Correr
+            > python backend/manage.py runserver
+        5. Correr pruebas unitarias
+            > cd backend
+            > pytest
+    2. Frontend
         1. Instalar node desde la pagina https://nodejs.org/en/
         2. Instalar vue
             > npm install vue
-        3. Instalar y levantar
-            > cd frontend
-            
-            > npm install
-
-            > npm run serve
+        3. Levantar e instalar
+            >npm install
+            >npm run serve
         
 #Credenciales
 
