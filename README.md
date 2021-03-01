@@ -183,3 +183,8 @@ Para el frontend se utilizó un framework de javascript llamado VUE junto a type
 # Lógica de negocio
 
 Antes de realizar cualquier acción se deben realizar los cambios en slack, luego iniciar sesión, para posterior a esto ingresar usuarios del tipo de perfil "empleado", de lo contrario el mensaje de slack no le llegará a ninguna persona.
+
+
+Despues de levantar el frontend, se debe ingresar la url a la variable URL_SELECCION_MENU del settings.py, actualmente esta ingresada pero en el puerto 8080, en caso de levantar el frontend y este se levante en otro puerto por ejemplo el 8081 en la URL_SELECCION_MENU deberi a salir así.
+
+>URL_SELECCION_MENU
