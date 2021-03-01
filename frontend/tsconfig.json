@@ -14,9 +14,7 @@
     "types": [
       "webpack-env",
       "node",
-      "vuetify",
-      "moment",
-      "cypress"
+      "moment"
     ],
     "typeRoots": [
       "./node_modules/@types",

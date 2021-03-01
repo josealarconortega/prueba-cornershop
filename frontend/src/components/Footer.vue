@@ -6,7 +6,8 @@
           <div class="info-pie">
             <span>Prueba Cornershop</span>
             <p>
-              Jose Felipr Alarcón<br />
+              José Felipe Alarcón<br />
+              Mail: j.felipe.alarcon.ortega@gmail.com<br />
               Tel: +569 31201232
             </p>
           </div>

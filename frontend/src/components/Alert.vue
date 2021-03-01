@@ -1,14 +1,14 @@
 <template>
   <div v-if="alert.message" data-test="alert-wraper">
-    <v-alert
+    <b-alert
       v-model="isAlert"
-      :type="alert.type"
+      :variant="alert.type"
       close-text="Cerrar"
       dismissible
       @input="clear()"
     >
       {{ alert.message }}
-    </v-alert>
+    </b-alert>
   </div>
 </template>
 

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 
 from pathlib import Path
+from django.conf.global_settings import DATETIME_INPUT_FORMATS, DATE_INPUT_FORMATS
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles'
+    'django.contrib.staticfiles',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -51,7 +53,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
+
+CORS_ORIGIN_WHITELIST = (
+  'http://localhost:8080',
+  'http://127.0.0.1:8080'
+)
 
 ROOT_URLCONF = 'config.urls'
 
@@ -72,8 +81,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
-
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -127,7 +134,12 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
 
+PERFIL_MANTENIMIENTO = 1
+PERFIL_EMPLEADO = 2
 
+STATUS_CONFIRMATION = 2
+URL_SELECCION_MENU = "http://localhost:8080/#/Menu/" #url front
+SLACK_API_TOKEN = "xoxb-1776202371746-1810035059620-qdlHh20V59BKDGTiRQSRDB1t" #Bot User OAuth Token, example: xoxb-1776202371746-1783981133318-Y56wrmjzl7TG1AfsyQV5FPz8
 # if LOCAL_DEPLOY:
 #     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # else:

@@ -2,6 +2,10 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
 import LoginForm from "../views/LoginForm.vue";
+import UsuarioForm from "../views/UsuarioForm.vue";
+import MenuForm from "../views/MenuForm.vue";
+import SelectMenuForm from "../views/SelectMenuForm.vue";
+import UsuariosMenuForm from "../views/UsuariosMenuForm.vue";
 
 Vue.use(VueRouter);
 
@@ -17,13 +21,24 @@ const routes: Array<RouteConfig> = [
     component: LoginForm
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    path: "/usuario",
+    name: "Usuario",
+    component: UsuarioForm
+  },
+  {
+    path: "/menu",
+    name: "Menu",
+    component: MenuForm
+  },
+  {
+    path: "/menu/:uid",
+    name: "Menu",
+    component: SelectMenuForm
+  },
+  {
+    path: "/usuariosmenu",
+    name: "UsuariosMenu",
+    component: UsuariosMenuForm
   }
 ];
 

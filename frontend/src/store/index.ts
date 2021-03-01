@@ -9,6 +9,7 @@ export default new Vuex.Store({
       message: "",
       type: ""
     },
+    key: "",
     autenticate: false
   },
   mutations: {},
