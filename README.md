@@ -45,7 +45,7 @@ En el proyecto estas integraciones se dividen en adapters (integraciones externa
 > backend/api/infraestructure/repositories
 
 
-## UI, Framworks
+## UI, Frameworks
 
 En esta última capa se encuentra la parte visual de la aplicación y su framework, en este caso como el framework es DJANGO, podemos deducir que en la api se puede encontrar la conexión a base de datos (settings.py), los urls, las views y los serializers.
 
