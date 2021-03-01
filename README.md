@@ -102,7 +102,7 @@ El modelo utilizado para la aplicación se presenta a continuación, se utilizó
 
         ![Espacio de trabajo](./readmeIMG/slack/scopesAgregados.png)
 
-    10. Hacer mismo proceso para **User Token Scopes**, agregando los siguientes permisos.
+    10. Hacer el mismo para **User Token Scopes**, agregando los siguientes permisos.
 
         > chat:write
 
@@ -123,7 +123,7 @@ El modelo utilizado para la aplicación se presenta a continuación, se utilizó
     13. En la nueva pestaña seleccionar el botón **copy**.
         ![Espacio de trabajo](./readmeIMG/slack/copiarBotToken.png)
 
-    14. Copiar token en la varible **SLACK_API_TOKEN** del settings.py ubicado en la siguiente ruta.
+    14. Copiar token en la variable **SLACK_API_TOKEN** del settings.py ubicado en la siguiente ruta.
 
         >backend/config/settings.py
 
