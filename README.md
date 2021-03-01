@@ -166,13 +166,13 @@ Para el frontend se utilizo un framework de javascript llamado VUE junto a types
             >npm install
             >npm run serve
         
-#Credenciales
+# Credenciales
 
 >Usuario: 11.111.111-1
 
 >password: qwerty123
 
 
-#Logica de negocio
+# Logica de negocio
 
 Antes de realizar cualquier acción se deben realizar los cambios en slack, luego iniciar sesión, para posterior a esto ingresar usuarios del tipo de perfil "empleado", de lo contrario el mensaje de slack no le llegara a ninguna persona.
