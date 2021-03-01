@@ -141,7 +141,8 @@ Para el frontend se utilizo un framework de javascript llamado VUE junto a types
 
 1. Instalar y correr proyecto:
     1. Backend
-        1. Instalar python 3 y virtualenv
+        1. Instalar python 3 y virtualenv y levantar env
+            > source /backend/env/bin/activate
         2. Instalar requerimientos
             > pip install -r backend/requirements.txt
         3. Inicializar Base de datos
